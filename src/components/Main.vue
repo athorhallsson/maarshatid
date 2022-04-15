@@ -11,13 +11,15 @@
         <el-pagination @current-change="getPhotos" :current-page.sync="page" :page-size="30" layout="prev, pager, next" :total="totalItems"></el-pagination>
       </span>
     </div>
-    <el-dialog v-model="dialogVisible" size="large">
+    <el-dialog fullscreen="true" v-model="dialogVisible" size="large" top="0vh" close-on-click-modal="false" width="100%" :title="selectedImage.name">
       <img class="selimage" :src="selectedImage.url" v-bind:class="{ bw: selectedImage.blackAndWhite }" alt="">
       <div>
-        <i v-if="this.selectedImageIndex > 0" class="el-icon-arrow-left" v-on:click="decreaseDisplayImage" /> <i v-if="this.selectedImageIndex < this.images.length - 1" class="el-icon-arrow-right" v-on:click="increaseDisplayImage" />
+        <i v-if="this.selectedImageIndex > 0" class="el-icon-arrow-left" @keyup='handleKeyup' v-on:click="decreaseDisplayImage" /> 
+        <i class="el-icon-plus" v-on:click="addToCart(selectedImage)"></i>
+        <i v-if="this.selectedImageIndex < this.images.length - 1" class="el-icon-arrow-right" v-on:click="increaseDisplayImage" />
       </div>
     </el-dialog>
-    <el-dialog v-model="cartDialogVisible" size="large">
+    <el-dialog v-model="cartDialogVisible" size="large" top="2vh" @title="selectedCartImage.name">
       <img class="selimage" :src="selectedCartImage.thumb" v-bind:class="{ bw: selectedCartImage.blackAndWhite }" alt="">
     </el-dialog>
     <div class="photocontainer">
@@ -48,7 +50,7 @@
         </span>
       </div>
     </div>
-    <el-dialog title="Pöntunarupplýsingar" custom-class="orderdialog" :visible.sync="dialogFormVisible">
+    <el-dialog title="Pöntunarupplýsingar" custom-class="orderdialog" :visible.sync="dialogFormVisible" top="2vh" >
       <el-form>
         <el-form-item label="Nafn">
           <el-input v-model="order.customerName" auto-complete="off"></el-input>
@@ -225,13 +227,21 @@ export default {
       this.selectedImageIndex = this.selectedImageIndex - 1
     },
     increaseDisplayImage () {
-      if (this.selectedImageIndex >= this.images.length) {
+      if (this.selectedImageIndex >= this.images.length - 1) {
         return
       }
       this.selectedImageIndex = this.selectedImageIndex + 1
+    },
+    handleKeyup (event) {
+      if (event.keyCode === 37) {
+        this.decreaseDisplayImage()
+      } else if (event.keyCode === 39) {
+        this.increaseDisplayImage()
+      }
     }
   },
   mounted () {
+    document.addEventListener('keyup', this.handleKeyup)
     this.getPhotos()
   }
 }
@@ -299,6 +309,11 @@ em {
 
 .el-dialog__header .el-dialog__body {
   width: 500px;
+}
+
+.el-dialog__body {
+  padding: 5px;
+  height: 600px;
 }
 
 /* Cart */
@@ -419,6 +434,11 @@ img.bw {
 .el-input {
     margin-right: 5px;
     padding-right: 5px;
+}
+
+i {
+  font-size: 20px;
+  padding: 4px;
 }
 
 .info {
