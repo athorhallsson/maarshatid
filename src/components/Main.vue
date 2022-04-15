@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div id="logocontainer">
-      <img id="logo" src="../assets/logo_christmas.png">
+      <img id="logo" src="../assets/logo_white.png">
       <span class="studios">
         <el-select v-model="studio" @change="switchStudio" placeholder="Studio">
           <el-option v-for="s in studios" :key="s" :label="'Stúdíó ' + s" :value="s"></el-option>
@@ -36,7 +36,7 @@
         <span class="cartdesc">
             <h2>Karfa</h2>
             <h3>Verð: {{totalPrice}} kr.</h3>
-            <div><el-button :loading="loading" :disabled="loading" size="medium" type="danger" @click="dialogFormVisible = true">Halda áfram</el-button></div>
+            <div><el-button :loading="loading" :disabled="loading" size="medium" type="danger" @click="dialogFormVisible = true">Panta</el-button></div>
         </span>
         <span v-for="item in cart" :key="item.id" class="cartitem">
             <div>
@@ -72,8 +72,8 @@
       </span>
     </el-dialog>
     <el-dialog custom-class="initialdialog" :visible.sync="initialDialog">
-      <h2>Árshátíð MA 2019</h2>
-      <p>Hérna geturu pantað myndir frá Árshátíð MA 2019</p>
+      <h2>Árshátíð MA 2022</h2>
+      <p>Hérna geturu pantað myndir frá Árshátíð MA 2022</p>
       <p>Stærðin á myndunum er 15x20 cm og verðið er 500 kr./stk.</p>
       <p></p>
       <p>Myndirnar eru settar í körfuna með því að smella á +</p>
@@ -156,17 +156,17 @@ export default {
     getPhotos () {
       this.loading = true
       return this.$http.get(BASE_URL + '/api/v1/ma/photos?page=' + (this.page - 1) + '&studio=' + this.studio)
-      .then((response) => {
-        this.images = response.body.images
-        console.log(response)
-        this.totalPages = response.body.totalPages
-        this.loading = false
-      })
-      .catch((errorResponse) => {
-        console.log(errorResponse)
-        this.$message.error('Gat ekki sótt myndir')
-        this.loading = false
-      })
+        .then((response) => {
+          this.images = response.body.images
+          console.log(response)
+          this.totalPages = response.body.totalPages
+          this.loading = false
+        })
+        .catch((errorResponse) => {
+          console.log(errorResponse)
+          this.$message.error('Gat ekki sótt myndir')
+          this.loading = false
+        })
     },
     showError (message) {
       this.$message.error(message)
@@ -196,18 +196,18 @@ export default {
       var req = this.order
       req.items = this.cart
       return this.$http.post(BASE_URL + '/api/v1/ma/orders', req)
-      .then((response) => {
-        this.cart = []
-        console.log(response)
-        this.dialogFormVisible = false
-        this.$message.success('Pöntun send')
-        this.loading = false
-      })
-      .catch((errorResponse) => {
-        console.log(errorResponse)
-        this.$message.error('Gat ekki sótt myndir')
-        this.loading = false
-      })
+        .then((response) => {
+          this.cart = []
+          console.log(response)
+          this.dialogFormVisible = false
+          this.$message.success('Pöntun send')
+          this.loading = false
+        })
+        .catch((errorResponse) => {
+          console.log(errorResponse)
+          this.$message.error('Gat ekki sótt myndir')
+          this.loading = false
+        })
     },
     addToCart (image) {
       this.cart.push({ photoId: image.id, thumb: image.thumb, count: 1, blackAndWhite: false })
@@ -255,7 +255,8 @@ p {
 }
 
 #photos {
-  padding: 30px;
+  padding: 5px;
+  width: 100%;
   background-color: white;
 }
 
@@ -303,20 +304,20 @@ em {
 /* Cart */
 
 .cart {
-  height: 190px;
+  height: 180px;
   width: 100%;
   color: white;
-  padding: 20px 30px;
+  padding: 10px 10px;
   background-color: rgb(40, 50, 45);
   overflow: scroll;
 }
 
 .cart img {
   display: inline;
-  max-width: 200px;
+  max-width: 100px;
+  max-height: 100px;
   margin: 5px;
   width: 90%;
-  margin-bottom: 5px;
 }
 
 /* .cart span > div {
@@ -330,7 +331,6 @@ em {
   border-right-style: solid;
   border-right-width: 1px;
   padding-right: 30px;
-  padding-bottom: 5px;
   padding-top: 10px;
 }
 
@@ -341,11 +341,18 @@ em {
   width: 150px;
 }
 
+.cartdesc h3 {
+  margin: 5px;
+  padding: 5px;
+}
+
 .cartitem {
   float: left;
   margin-top: -5px;
   padding-top: 1px;
+  padding-bottom: 5px;
   margin-bottom: 5px;
+  margin-right: 10px;
 }
 
 .remove {
@@ -420,12 +427,14 @@ img.bw {
 
 .pagination {
     margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
     float: right;
     z-index: 100;
 }
 
 .studios {
-    position:absolute;
+    position:block;
     left:0;
     right:0;
     margin-left:auto;
