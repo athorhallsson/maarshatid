@@ -75,11 +75,9 @@
     </el-dialog>
     <el-dialog custom-class="initialdialog" :visible.sync="initialDialog">
       <h2>Árshátíð MA 2022</h2>
-      <p>Hérna geturu pantað myndir frá Árshátíð MA 2022</p>
-      <p>Stærðin á myndunum er 15x20 cm og verðið er 500 kr./stk.</p>
-      <p></p>
-      <p>Myndirnar eru settar í körfuna með því að smella á +</p>
-      <p>Þar er hægt að velja um svarthvítt eða lit</p>
+      <p>Hérna geturu pantað myndir frá Árshátíð MA 2022 eða hlaðið þeim niður með því að opna mynd, hægri smella og velja Save (eða draga í möppu).</p>
+      <p>Myndirnar eru settar í körfuna með því að smella á +. Stærðin á myndunum er 15x20 cm og verðið er 500 kr./stk. Þar er hægt að velja um svarthvítt eða lit.</p>
+      <p>Látið er vita með SMS skilaboðum þegar pöntun er tilbúin til afhendingar í Pedromyndum Skipagötu 16.</p>
       <i class="el-icon-information info"></i>
     </el-dialog>
   </div>
