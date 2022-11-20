@@ -74,9 +74,9 @@
       </span>
     </el-dialog>
     <el-dialog custom-class="initialdialog" :visible.sync="initialDialog">
-      <h2>Árshátíð MA 2022</h2>
-      <p>Hérna geturu pantað myndir frá Árshátíð MA 2022 eða hlaðið þeim niður með því að opna mynd, hægri smella og velja Save (eða draga í möppu).</p>
-      <p>Myndirnar eru settar í körfuna með því að smella á +. Stærðin á myndunum er 15x20 cm og verðið er 500 kr./stk. Þar er hægt að velja um svarthvítt eða lit.</p>
+      <h2>Árshátíð MA</h2>
+      <p>Hérna geturu pantað myndir frá Árshátíð MA eða hlaðið þeim niður með því að opna mynd, hægri smella og velja Save (eða draga í möppu).</p>
+      <p>Myndirnar eru settar í körfuna með því að smella á +. Stærðin á myndunum er 15x20 cm og verðið er 700 kr./stk. Þar er hægt að velja um svarthvítt eða lit.</p>
       <p>Látið er vita með SMS skilaboðum þegar pöntun er tilbúin til afhendingar í Pedromyndum Skipagötu 16.</p>
       <i class="el-icon-information info"></i>
     </el-dialog>
@@ -103,8 +103,8 @@ export default {
       cart: [],
       dialogVisible: false,
       dialogFormVisible: false,
-      studios: [ 'A', 'B', 'C' ],
-      studio: 'A',
+      studios: [ 'A 2021', 'B 2021', 'C 2021', 'hægri 2022', 'vinstri 2022' ],
+      studio: 'hægri 2022',
       initialDialog: true,
       cartDialogVisible: false,
       selectedCartImage: {},
@@ -125,7 +125,7 @@ export default {
     totalPrice: function () {
       var total = 0
       for (var i = 0; i < this.cart.length; i++) {
-        total = total + (500 * this.cart[i].count)
+        total = total + (700 * this.cart[i].count)
       }
       return total
     },
